@@ -10,9 +10,9 @@ const Tab = createBottomTabNavigator();
 const Tabs = () => {
   return (
     <Tab.Navigator
-      tabBarOptions={{
-        showLabel: false,
-        style: {
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle: {
           position: "absolute",
           bottom: 0,
           left: 0,
@@ -69,7 +69,7 @@ const Tabs = () => {
               style={{
                 width: 24,
                 height: 24,
-                tintColor: COLORS.black,
+                tintColor: COLORS.white,
               }}
             />
           ),
