@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Platform,
 } from "react-native";
 import {
   createBottomTabNavigator,
@@ -34,7 +35,7 @@ const CustomTabBarButton = ({ containerStyle, isFloat, children, onPress }) => {
         <Svg
           xmlns="http://www.w3.org/2000/svg"
           width={100}
-          height={50}
+          height={Platform.OS === "ios" ? 53 : 50}
           viewBox="0 0 90 61"
         >
           <Path
