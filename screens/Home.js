@@ -1,16 +1,13 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
+import { useSelector } from "react-redux";
 
 import { HeaderBar } from "../components";
-import { COLORS, SIZES } from "../constants";
+import { SIZES } from "../constants";
 
-const Home = ({ navigation }) => {
+const Home = () => {
+  const { appTheme } = useSelector((state) => state);
+
   return (
     <View style={styles.container}>
       <HeaderBar />
@@ -20,7 +17,7 @@ const Home = ({ navigation }) => {
           flex: 1,
           borderTopLeftRadius: SIZES.radius * 2,
           borderTopRightRadius: SIZES.radius * 2,
-          backgroundColor: COLORS.secondary,
+          backgroundColor: appTheme.backgroundColor,
           marginTop: -25,
         }}
       ></ScrollView>

@@ -7,11 +7,24 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
-import { SIZES, COLORS, FONTS, icons } from "../constants";
 import CustomStatusBar from "./StatusBar";
+import { toggleTheme } from "../store/themeActions";
+import { SIZES, COLORS, FONTS, icons } from "../constants";
 
 const HeaderBar = () => {
+  const { appTheme } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  const handleToggleTheme = () => {
+    if (appTheme.name === "light") {
+      dispatch(toggleTheme("dark"));
+    } else {
+      dispatch(toggleTheme("light"));
+    }
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -59,6 +72,7 @@ const HeaderBar = () => {
           borderRadius: 20,
           backgroundColor: COLORS.lightPurple,
         }}
+        onPress={handleToggleTheme}
       >
         {/* Sun */}
         <View
@@ -67,6 +81,7 @@ const HeaderBar = () => {
             height: 30,
             justifyContent: "center",
             alignItems: "center",
+            ...(appTheme.name === "light" ? styles.selectedLightModeStyle : {}),
           }}
         >
           <Image
@@ -82,7 +97,7 @@ const HeaderBar = () => {
             height: 30,
             justifyContent: "center",
             alignItems: "center",
-            ...styles.selectNightModeStyle,
+            ...(appTheme.name === "dark" ? styles.selectNightModeStyle : {}),
           }}
         >
           <Image
