@@ -6,12 +6,87 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
+  FlatList,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
 import { HeaderBar } from "../components";
-import { COLORS, FONTS, icons, SIZES } from "../constants";
+import { COLORS, constants, FONTS, icons, SIZES } from "../constants";
+
+function Tabs({ appTheme }) {
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginTop: SIZES.padding,
+        marginHorizontal: SIZES.padding,
+        backgroundColor: appTheme.tabBackgroundColor,
+        borderRadius: 10,
+      }}
+    >
+      {/* Tab Indicator */}
+      <View
+        style={{
+          position: "absolute",
+          height: "100%",
+          width: 120,
+          left: 0,
+          borderRadius: SIZES.radius,
+          backgroundColor: COLORS.primary,
+        }}
+      ></View>
+
+      {/* Tabs  */}
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={constants.promoTabs}
+        renderItem={({ item, index }) => (
+          <TouchableOpacity
+            key={`PromoTab-${index}`}
+            onPress={() => console.log(item)}
+          >
+            <View
+              style={{
+                paddingVertical: 10,
+                paddingHorizontal: 15,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text
+                style={{
+                  color: COLORS.white,
+                  ...FONTS.h3,
+                }}
+              >
+                {item.title}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        )}
+        keyExtractor={(item, index) => `PromoTab-${index}`}
+      />
+    </View>
+  );
+}
+
+function RenderPromoDeals({ appTheme }) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+      }}
+    >
+      {/* Header - Tabs */}
+      <Tabs appTheme={appTheme} />
+    </View>
+  );
+}
 
 function RenderAvailableRewards() {
   const navigation = useNavigation();
@@ -130,6 +205,9 @@ const Home = () => {
       >
         {/* Rewards */}
         <RenderAvailableRewards />
+
+        {/* Promo Deals  */}
+        <RenderPromoDeals appTheme={appTheme} />
       </ScrollView>
     </View>
   );

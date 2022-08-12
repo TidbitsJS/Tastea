@@ -11,6 +11,7 @@ import {
   BottomTabBar,
 } from "@react-navigation/bottom-tabs";
 import Svg, { Path } from "react-native-svg";
+import { useSelector } from "react-redux";
 
 import { Home, Rewards } from "../screens";
 import { COLORS, icons, SIZES } from "../constants";
@@ -29,6 +30,8 @@ const CustomTabBar = (props) => {
 };
 
 const CustomTabBarButton = ({ containerStyle, isFloat, children, onPress }) => {
+  const { appTheme } = useSelector((state) => state);
+
   if (isFloat) {
     return (
       <View style={{ flex: 1, alignItems: "center" }}>
@@ -40,7 +43,7 @@ const CustomTabBarButton = ({ containerStyle, isFloat, children, onPress }) => {
         >
           <Path
             d="M0 0a38.742 38.742 0 0113 7c5.313 4.4 6.7 8.593 12 13 5.993 4.98 12.987 8 20 8s14.007-3.02 20-8c5.3-4.408 6.687-8.6 12-13a38.742 38.742 0 0113-7v61H0V0z"
-            fill="#4d4d4d"
+            fill={appTheme.bottomTabBarBackgroundColor}
             fillRule="evenodd"
           />
         </Svg>
@@ -67,7 +70,7 @@ const CustomTabBarButton = ({ containerStyle, isFloat, children, onPress }) => {
         <View
           style={{
             flex: 1,
-            backgroundColor: COLORS.gray3,
+            backgroundColor: appTheme.bottomTabBarBackgroundColor,
             ...containerStyle,
           }}
         >
