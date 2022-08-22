@@ -1,7 +1,21 @@
 import React from "react";
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  Animated,
+  Image,
+} from "react-native";
 
-import { COLORS, SIZES, FONTS, constants } from "../../constants";
+import {
+  COLORS,
+  SIZES,
+  FONTS,
+  constants,
+  dummyData,
+  images,
+} from "../../constants";
 
 function Tabs({ appTheme }) {
   return (
@@ -64,6 +78,8 @@ function Tabs({ appTheme }) {
 }
 
 const PromoDeals = ({ appTheme }) => {
+  const scrollX = React.useRef(new Animated.Value(0)).current;
+
   return (
     <View
       style={{
@@ -73,6 +89,67 @@ const PromoDeals = ({ appTheme }) => {
     >
       {/* Header - Tabs */}
       <Tabs appTheme={appTheme} />
+
+      {/* Details */}
+      <Animated.FlatList
+        data={dummyData.promos}
+        horizontal
+        pagingEnabled
+        scrollEventThrottle={16}
+        snapToAlignment="center"
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item) => `${item.id}`}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+          { useNativeDriver: false }
+        )}
+        renderItem={({ item }) => (
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              width: SIZES.width,
+              paddingTop: SIZES.base,
+            }}
+          >
+            <Image
+              source={images.strawberryBackground}
+              resizeMode="contain"
+              style={{ width: "100%" }}
+            />
+
+            <Text
+              style={{
+                color: COLORS.red,
+                ...FONTS.h1,
+                fontSize: 27,
+              }}
+            >
+              {item.name}
+            </Text>
+
+            <Text
+              style={{
+                marginTop: 3,
+                color: appTheme.textColor,
+                ...FONTS.body4,
+              }}
+            >
+              {item.description}
+            </Text>
+
+            <Text
+              style={{
+                marginTop: 3,
+                color: appTheme.textColor,
+                ...FONTS.body4,
+              }}
+            >
+              Calories: {item.calories}
+            </Text>
+          </View>
+        )}
+      />
     </View>
   );
 };

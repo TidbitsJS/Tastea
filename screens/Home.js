@@ -21,7 +21,7 @@ const Home = () => {
           marginTop: -25,
         }}
         contentContainerStyle={{
-          paddingBottom: 150,
+          paddingBottom: 100,
         }}
       >
         {/* Rewards */}
