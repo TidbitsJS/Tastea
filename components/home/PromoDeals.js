@@ -7,6 +7,7 @@ import {
   Animated,
   Image,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   COLORS,
@@ -16,6 +17,7 @@ import {
   dummyData,
   images,
 } from "../../constants";
+import CustomButton from "../CustomButton";
 
 function Tabs({ appTheme }) {
   return (
@@ -78,6 +80,7 @@ function Tabs({ appTheme }) {
 }
 
 const PromoDeals = ({ appTheme }) => {
+  const navigation = useNavigation();
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   return (
@@ -147,6 +150,21 @@ const PromoDeals = ({ appTheme }) => {
             >
               Calories: {item.calories}
             </Text>
+
+            <CustomButton
+              label="Order Now"
+              isPrimaryButton
+              containerStyle={{
+                marginTop: 10,
+                paddingHorizontal: SIZES.padding,
+                paddingVertical: SIZES.base,
+                borderRadius: SIZES.radius * 2,
+              }}
+              labelStyle={{
+                ...FONTS.h3,
+              }}
+              handlePress={() => navigation.navigate("Location")}
+            />
           </View>
         )}
       />
